@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruit Shop - LM Thapar School of Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8fff4;
+    }
+    header {
+      background-color: #28a745;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .fruit-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .fruit-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: white;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      padding-bottom: 10px;
+    }
+    .fruit-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .fruit-card h3 {
+      margin: 10px 0;
+    }
+    form {
+      margin-top: 30px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+    form input, form select, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    form button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fruit Shop - LM Thapar School of Management</h1>
+    <p>Fresh fruits delivered to your door!</p>
+  </header>
+
+  <div class="container">
+    <h2>Available Fruits</h2>
+    <div class="fruit-gallery">
+      <div class="fruit-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg" alt="Apple">
+        <h3>Apple</h3>
+        <p>₹100/kg</p>
+      </div>
+      <div class="fruit-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Banana">
+        <h3>Banana</h3>
+        <p>₹50/dozen</p>
+      </div>
+      <div class="fruit-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Pear.jpg" alt="Pear">
+        <h3>Pear</h3>
+        <p>₹120/kg</p>
+      </div>
+      <div class="fruit-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg" alt="Orange">
+        <h3>Orange</h3>
+        <p>₹80/kg</p>
+      </div>
+    </div>
+
+    <form id="orderForm">
+      <h2>Order Your Fruits</h2>
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="fruit">Select Fruit</label>
+      <select id="fruit" name="fruit" required>
+        <option value="">--Select a fruit--</option>
+        <option value="Apple">Apple</option>
+        <option value="Banana">Banana</option>
+        <option value="Pear">Pear</option>
+        <option value="Orange">Orange</option>
+      </select>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+
+      <label for="payment">Payment Method</label>
+      <select id="payment" name="payment" required>
+        <option value="">--Select Payment Method--</option>
+        <option value="UPI">UPI</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+      </select>
+
+      <button type="submit">Pay & Order</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // collect form data
+      const data = {
+        name: document.getElementById('name').value,
+        fruit: document.getElementById('fruit').value,
+        quantity: document.getElementById('quantity').value,
+        payment: document.getElementById('payment').value,
+        time: new Date().toISOString()
+      };
+      // save to localStorage (simple demo of capturing response)
+      const orders = JSON.parse(localStorage.getItem('fruitOrders') || '[]');
+      orders.push(data);
+      localStorage.setItem('fruitOrders', JSON.stringify(orders));
+      alert('Thanks! Order received. (This demo saves orders in your browser.)\nTo enable real payments and server-side order storage, ask me and I will add it.');
+    });
+  </script>
+</body>
+</html>
